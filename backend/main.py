@@ -1,15 +1,8 @@
 """
-ChartLens — Vercel Serverless Function
-Wraps the FastAPI backend for deployment on Vercel alongside the Next.js frontend.
+ChartLens — FastAPI Backend
 """
 
-import sys
 import pathlib
-
-# Add the backend directory to the Python path so the pipeline can be imported
-_root = pathlib.Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(_root / "backend"))
-sys.path.insert(0, str(_root))
 
 from typing import Optional
 
@@ -37,7 +30,7 @@ app.add_middleware(
 )
 
 # ── Load data once at startup ────────────────────────────────────────────
-CSV_PATH = _root / "backend" / "Atlantic_United_Kingdom.csv"
+CSV_PATH = pathlib.Path(__file__).resolve().parent / "Atlantic_United_Kingdom.csv"
 DF_RAW: pd.DataFrame = load_and_clean(CSV_PATH)
 
 
