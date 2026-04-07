@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  /* Spotify theme tokens */
+  --spotify-green: #1DB954;
+  --spotify-dark: #191414;
+  --spotify-card: #282828;
+  --accent-coral: #FF6B6B;
+  --neutral-gray: #B3B3B3;
+  --uk-blue: #003087;
+  --intl-red: #CF142B;
+
+  /* shadcn/ui design tokens — dark theme */
+  --background: #191414;
+  --foreground: #ffffff;
+  --card: #282828;
+  --card-foreground: #ffffff;
+  --primary: #1DB954;
+  --primary-foreground: #ffffff;
+  --muted: #282828;
+  --muted-foreground: #B3B3B3;
+  --border: rgba(255, 255, 255, 0.1);
+  --ring: #1DB954;
+  --radius: 0.75rem;
+}
+
+/* stylelint-disable at-rule-no-unknown */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+}
+/* stylelint-enable at-rule-no-unknown */
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--spotify-dark);
+  color: #ffffff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--spotify-dark); }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--spotify-green); }
+
+/* Smooth transitions */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom spin reverse for loading spinner */
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+.animate-spin-reverse {
+  animation: spin-reverse 0.8s linear infinite;
+}
+
+/* Plot container styling */
+.js-plotly-plot .plotly .modebar {
+  display: none !important;
+}
+
+/* Data table styling */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  background: var(--spotify-card);
+  color: var(--neutral-gray);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+td {
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: #e0e0e0;
+}
+
+tr:hover td {
+  background: rgba(29, 185, 84, 0.03);
+}
