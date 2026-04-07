@@ -89,3 +89,5 @@ desktop.ini
 # Misc
 # ==============================
 *.csv
+
+.vercel
