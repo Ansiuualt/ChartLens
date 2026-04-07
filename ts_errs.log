@@ -1,0 +1,80 @@
+components/charts/album-bin-box.tsx(16,7): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { y: number[]; type: "box"; name: string; marker: { color: string; }; boxpoints: string; }[]; layout: any; useResizeHandler: true; style: { width: string; height: string; }; config: { displayModeBar: boolean; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { y: number[]; type: "box"; name: string; marker: { color: string; }; boxpoints: string; }[]; layout: any; useResizeHandler: true; style: { width: string; height: string; }; config: { displayModeBar: boolean; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+components/charts/album-scatter.tsx(21,7): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { x: number[]; y: number[]; mode: "markers"; type: "scatter"; name: string; marker: { color: string; opacity: number; size: number; }; text: string[]; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { ...; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { x: number[]; y: number[]; mode: "markers"; type: "scatter"; name: string; marker: { color: string; opacity: number; size: number; }; text: string[]; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { ...; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+components/charts/album-type-bar.tsx(19,7): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { x: string[]; y: number[]; type: string; marker: { color: string[]; }; text: string[]; textposition: string; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { width: string; height: string; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { x: string[]; y: number[]; type: string; marker: { color: string[]; }; text: string[]; textposition: string; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { width: string; height: string; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+components/charts/collab-boxes.tsx(25,11): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ key: "days_on_chart" | "chart_velocity" | "avg_popularity"; data: { y: number[]; type: string; name: string; marker: { color: string; }; boxpoints: string; }[]; layout: any; useResizeHandler: true; style: { ...; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ key: "days_on_chart" | "chart_velocity" | "avg_popularity"; data: { y: number[]; type: string; name: string; marker: { color: string; }; boxpoints: string; }[]; layout: any; useResizeHandler: true; style: { ...; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+components/charts/collab-scatter.tsx(16,7): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { x: number[]; y: number[]; mode: string; type: string; name: string; marker: { color: string; opacity: number; size: number; }; text: string[]; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { ...; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { x: number[]; y: number[]; mode: string; type: string; name: string; marker: { color: string; opacity: number; size: number; }; text: string[]; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { ...; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+components/charts/explicit-donut.tsx(13,7): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { labels: string[]; values: number[]; type: string; hole: number; marker: { colors: string[]; }; textinfo: string; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { width: string; height: string; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { labels: string[]; values: number[]; type: string; hole: number; marker: { colors: string[]; }; textinfo: string; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { width: string; height: string; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+components/charts/explicit-violins.tsx(25,11): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ key: "days_on_chart" | "avg_popularity" | "avg_position"; data: any[]; layout: any; useResizeHandler: true; style: { width: string; height: string; }; config: { displayModeBar: boolean; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ key: "days_on_chart" | "avg_popularity" | "avg_position"; data: any[]; layout: any; useResizeHandler: true; style: { width: string; height: string; }; config: { displayModeBar: boolean; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+components/charts/lorenz-curve.tsx(14,7): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: ({ x: number[]; y: number[]; mode: string; line: { dash: string; color: string; width: number; }; name: string; hoverinfo: string; } | { x: number[]; y: number[]; mode: string; fill: string; line: { color: string; width: number; }; fillcolor: string; name: string; hovertemplate: string; })[]; layout: any; us...' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: ({ x: number[]; y: number[]; mode: string; line: { dash: string; color: string; width: number; }; name: string; hoverinfo: string; } | { x: number[]; y: number[]; mode: string; fill: string; line: { color: string; width: number; }; fillcolor: string; name: string; hovertemplate: string; })[]; layout: any; us...' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+components/charts/nationality-area.tsx(15,7): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { x: string[]; y: number[]; type: "scatter"; mode: "lines"; fill: string; name: string; line: { color: string; width: number; }; fillcolor: string; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { ...; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { x: string[]; y: number[]; type: "scatter"; mode: "lines"; fill: string; name: string; line: { color: string; width: number; }; fillcolor: string; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { ...; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+components/charts/nationality-bars.tsx(22,11): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ key: keyof NatStat; data: { x: string[]; y: number[]; type: string; marker: { color: string[]; }; text: string[]; textposition: string; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { ...; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ key: keyof NatStat; data: { x: string[]; y: number[]; type: string; marker: { color: string[]; }; text: string[]; textposition: string; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { ...; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+components/charts/plot-wrapper.tsx(5,35): error TS7016: Could not find a declaration file for module 'react-plotly.js'. 'C:/Users/hp/OneDrive/Documents/GitHub/uk-charts-analyzer/frontend/node_modules/react-plotly.js/react-plotly.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/react-plotly.js` if it exists or add a new declaration (.d.ts) file containing `declare module 'react-plotly.js';`
+components/charts/plot-wrapper.tsx(10,35): error TS2503: Cannot find namespace 'Plotly'.
+components/charts/top-artists-bar.tsx(16,7): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { x: number[]; y: string[]; type: string; orientation: string; marker: { color: string[]; }; text: string[]; textposition: string; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { width: string; height: string; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ data: { x: number[]; y: string[]; type: string; orientation: string; marker: { color: string[]; }; text: string[]; textposition: string; hovertemplate: string; }[]; layout: any; useResizeHandler: true; style: { width: string; height: string; }; config: { ...; }; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'data' does not exist on type 'IntrinsicAttributes'.

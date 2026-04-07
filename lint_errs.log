@@ -1,0 +1,21 @@
+
+> frontend@0.1.0 lint
+> eslint
+
+
+C:\Users\hp\OneDrive\Documents\GitHub\uk-charts-analyzer\frontend\app\album-structure\page.tsx
+  88:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\hp\OneDrive\Documents\GitHub\uk-charts-analyzer\frontend\components\charts\explicit-violins.tsx
+  34:18  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  43:18  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  53:16  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hp\OneDrive\Documents\GitHub\uk-charts-analyzer\frontend\components\charts\top-artists-bar.tsx
+  3:29  warning  'COLORS' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hp\OneDrive\Documents\GitHub\uk-charts-analyzer\frontend\components\ui\shader-animation.tsx
+  12:15  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 6 problems (4 errors, 2 warnings)
+

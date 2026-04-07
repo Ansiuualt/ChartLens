@@ -1,0 +1,30 @@
+components/charts/album-scatter.tsx(20,6): error TS2769: No overload matches this call.
+  Overload 2 of 2, '(props: PlotParams): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Component<...> | Promise<...> | null | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+  Overload 2 of 2, '(props: PlotParams): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Component<...> | Promise<...> | null | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+components/charts/collab-scatter.tsx(15,6): error TS2769: No overload matches this call.
+  Overload 2 of 2, '(props: PlotParams): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Component<...> | Promise<...> | null | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+  Overload 2 of 2, '(props: PlotParams): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Component<...> | Promise<...> | null | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+components/charts/lorenz-curve.tsx(13,6): error TS2769: No overload matches this call.
+  Overload 2 of 2, '(props: PlotParams): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Component<...> | Promise<...> | null | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+  Overload 2 of 2, '(props: PlotParams): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Component<...> | Promise<...> | null | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+components/charts/nationality-area.tsx(14,6): error TS2769: No overload matches this call.
+  Overload 2 of 2, '(props: PlotParams): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Component<...> | Promise<...> | null | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+  Overload 2 of 2, '(props: PlotParams): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Component<...> | Promise<...> | null | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+components/charts/nationality-bars.tsx(44,44): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: PlotParams, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | ... 4 more ... | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+  Overload 2 of 2, '(props: PlotParams): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Component<...> | Promise<...> | null | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+components/charts/top-artists-bar.tsx(35,40): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: PlotParams, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | ... 4 more ... | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
+  Overload 2 of 2, '(props: PlotParams): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Component<...> | Promise<...> | null | undefined', gave the following error.
+    Type 'string' has no properties in common with type 'Partial<DataTitle>'.
