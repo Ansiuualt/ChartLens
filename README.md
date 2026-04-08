@@ -1,101 +1,93 @@
-# 🎵 ChartLens: UK Music Charts Analyzer
+# 🎵 ChartLens: UK Music Charts Analytics
 
-**ChartLens** is a high-performance, interactive analytics dashboard designed to visualize and analyze UK music charts data. Built with a modern full-stack architecture, it combines the power of **Next.js** for a seamless user experience and **FastAPI** for robust data processing.
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?style=for-the-badge&logo=vercel)](https://vercel.com/)
 
-![ChartLens Preview](https://via.placeholder.com/1200x600/111111/FFFFFF?text=ChartLens+Analytics+Dashboard)
+**ChartLens** is a premium, high-performance analytics dashboard designed to visualize and decode the trends of the UK Spotify Top 50. Originally evolved from a Streamlit implementation, it now features a state-of-the-art full-stack architecture for sub-second data processing and immersive visualizations.
 
-## ✨ Features
+![ChartLens Hero Banner](assets/banner.png)
 
-- **Interactive Visualizations**: Deep dive into chart trends with interactive **Plotly.js** charts.
-- **Immersive UI**: Stunning 3D backgrounds and smooth transitions powered by **Three.js** and **Framer Motion**.
-- **Real-time Analytics**: High-speed data processing using **Pandas** and **NumPy** in a FastAPI backend.
-- **Modern Design**: A sleek, dark-themed interface built with **Tailwind CSS 4** and **Shadcn UI** components.
-- **Global Filtering**: Easily filter data by date, artist, or genre to find specific insights.
+## ✨ Core Features
 
-## 🚀 Tech Stack
+*   **⚡ High-Speed Pipeline**: Seamless integration of Python/Pandas data processing with a FastAPI JSON backend.
+*   **🎨 Premium UI**: A dark, Spotify-inspired interface featuring **Glassmorphism**, **Framer Motion** transitions, and a **Three.js** shader hero.
+*   **📈 Deep Analysis Modules**:
+    *   **Artist Dominance**: Gini coefficient calculations and Lorenz curve visualizations.
+    *   **Domestic vs International**: Real-time market share comparisons.
+    *   **Collaborations**: Metric-driven impact analysis of solo vs. featured tracks.
+    *   **Explicit Content**: Prevalence and performance tracking.
+    *   **Album Structure**: Correlation analysis between track count and chart longevity.
+*   **🎯 Smart Filtering**: Global state management for filtering by date, nationality, and album type.
 
-### Frontend
-- **Framework**: [Next.js 16 (React 19)](https://nextjs.org/)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/) & [Three.js](https://threejs.org/)
-- **Charts**: [Plotly.js](https://plotly.com/javascript/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Data Fetching**: [SWR](https://swr.vercel.app/)
+## 📸 Dashboard Gallery
 
-### Backend
-- **Framework**: [FastAPI](https://fastapi.tiangolo.com/)
-- **Data Processing**: [Pandas](https://pandas.pydata.org/), [NumPy](https://numpy.org/)
-- **Server**: [Uvicorn](https://www.uvicorn.org/)
+| Overview Dashboard | Artist Dominance |
+| :---: | :---: |
+| ![Overview](assets/overview.png) | ![Artist Analysis](assets/artist.png) |
 
-### Deployment
-- **Platform**: [Vercel](https://vercel.com/) (Hybrid Frontend + Python Serverless Functions)
+## 🏗️ Architecture
 
-## 🛠️ Getting Started
+```mermaid
+graph TD
+    User((User)) -->|Browser| Frontend[Next.js 15 Client]
+    Frontend -->|SWR / Fetch| API[FastAPI Backend]
+    API -->|Pandas / NumPy| Analytics[Data Pipeline]
+    Analytics -->|Read| CSV[(UK Charts Data)]
+    Frontend -->|Three.js| GL[GPU Shader Animation]
+```
+
+## 🚀 Technical Stack
+
+- **Frontend**: Next.js 15, TypeScript, Tailwind CSS v4, shadcn/ui, Plotly.js, Three.js, Framer Motion.
+- **Backend**: FastAPI (Python), Pandas, NumPy, Uvicorn.
+- **Infrastructure**: Vercel (Next.js + Python Runtime).
+
+## 🛠️ Local Development
 
 ### Prerequisites
-- **Node.js**: v18+
-- **Python**: v3.9+
-- **npm** or **yarn**
+- Node.js v18+
+- Python v3.10+
 
-### Installation
+### Setup
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Ansiuualt/ChartLens.git
-   cd uk-charts-analyzer
-   ```
+1.  **Clone & Install Dependencies**:
+    ```bash
+    git clone https://github.com/Ansiuualt/ChartLens.git
+    cd uk-charts-analyzer
+    npm install             # Installs root, frontend, and backend bridged deps
+    ```
 
-2. **Setup Frontend**:
-   ```bash
-   cd frontend
-   npm install
-   ```
+2.  **Environment Setup**:
+    Ensure you have your data CSV file in the root or `backend/` directory as specified in `cleaner.py`.
 
-3. **Setup Backend**:
-   ```bash
-   cd ..
-   pip install -r requirements.txt
-   ```
+3.  **Run Development Servers**:
+    ```bash
+    # Run both Frontend and Backend concurrently
+    npm run dev
+    ```
+    - Dashboard: `http://localhost:3000`
+    - API Docs: `http://localhost:8000/docs` (if running locally)
 
-### Running Locally
-
-To run the full-stack application locally:
-
-1. **Start the Frontend**:
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-   The frontend will be available at `http://localhost:3000`.
-
-2. **Start the Backend API**:
-   You can run the FastAPI server directly for development:
-   ```bash
-   # From the root directory
-   uvicorn api.index:app --reload --port 8000
-   ```
-   *Note: The Next.js frontend is configured to proxy `/api` requests to the Python backend as defined in `vercel.json`.*
+---
 
 ## 📁 Project Structure
 
 ```text
 .
-├── api/                # Vercel serverless functions (FastAPI)
-├── backend/            # Python data processing scripts & raw data
-│   ├── pipeline/       # Data cleaning and transformation scripts
-│   └── *.csv           # UK Charts dataset
-├── frontend/           # Next.js 16 web application
-│   ├── app/            # App router pages
-│   ├── components/     # Reusable UI components
-│   └── lib/            # Utility functions
-├── vercel.json         # Deployment configuration for Vercel
-└── requirements.txt    # Python dependencies
+├── backend/            # FastAPI Server & Python Analytics Pipeline
+│   ├── server.py       # API Entry point
+│   ├── pipeline/       # Cleaning & Metrics logic
+│   └── *.csv           # Datasets
+├── frontend/           # Next.js 15 Client
+│   ├── app/            # App Router (Pages & Layouts)
+│   ├── components/     # UI Components & Plotly Chart Wrappers
+│   └── hooks/          # Custom SWR Data Hooks
+├── assets/             # Project Images & Media
+├── vercel.json         # Unified Deployment Config
+└── package.json        # Root-level bridge for Vercel & Scripts
 ```
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ---
-
-Built with ❤️ by [Ansiuualt](https://github.com/Ansiuualt)
+Built with 🎵 and ☕ by [Ansiuualt](https://github.com/Ansiuualt)
