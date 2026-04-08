@@ -3,9 +3,8 @@
 import { useFilters } from "@/hooks/use-filters";
 import { useQ4 } from "@/hooks/use-chart-data";
 import { PageHeader } from "@/components/page-header";
-import { InsightBox } from "@/components/insight-box";
 import { LoadingSpinner } from "@/components/loading-spinner";
-import { StatCard, StatRow } from "@/components/stat-card";
+import { InsightBox } from "@/components/insight-box";
 import { ExplicitViolins } from "@/components/charts/explicit-violins";
 import { ExplicitDonut } from "@/components/charts/explicit-donut";
 
@@ -13,55 +12,49 @@ export default function ExplicitAnalysisPage() {
   const { filters } = useFilters();
   const { data, isLoading } = useQ4(filters);
 
-  if (isLoading || !data) return <LoadingSpinner />;
-  if (data.error) return <div className="text-red-400 py-8">{data.error}</div>;
-
-  const expStat = data.explicit_stats.find((s) => s.label === "Explicit");
-  const clnStat = data.explicit_stats.find((s) => s.label === "Clean");
-
-  const pctFaster =
-    clnStat && expStat && clnStat.median_days > 0
-      ? ((1 - expStat.median_days / clnStat.median_days) * 100).toFixed(0)
-      : "0";
-
   return (
-    <div>
+    <div className="space-y-8 animate-in fade-in duration-500">
       <PageHeader
         title="Explicit Content Analysis"
-        subtitle="Does explicit content help or hurt chart performance?"
+        subtitle="Analyzing the prevalence and performance of explicit tracks in the UK charts."
       />
 
-      <ExplicitViolins tracks={data.tracks} />
-
-      <div className="grid grid-cols-2 gap-6 mt-6">
-        <div className="bg-[#191414] rounded-xl border border-white/5 p-2">
-          <ExplicitDonut stats={data.explicit_stats} />
+      {isLoading || !data ? (
+        <LoadingSpinner />
+      ) : data.error ? (
+        <div className="text-center text-red-400 py-12 bg-white/5 rounded-2xl border border-white/10">
+          {data.error}
         </div>
-        <div className="flex flex-col gap-4 justify-center">
-          {expStat && clnStat && (
-            <>
-              <StatRow>
-                <StatCard value={expStat.avg_position.toFixed(1)} label="Explicit Avg Pos" />
-                <StatCard value={clnStat.avg_position.toFixed(1)} label="Clean Avg Pos" />
-              </StatRow>
-              <StatRow>
-                <StatCard value={`${expStat.median_days.toFixed(0)}d`} label="Explicit Median Days" />
-                <StatCard value={`${clnStat.median_days.toFixed(0)}d`} label="Clean Median Days" />
-              </StatRow>
-            </>
-          )}
-        </div>
-      </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <ExplicitViolins tracks={data.tracks} />
+            <div className="flex flex-col gap-6">
+               <ExplicitDonut data={data.explicit_stats} />
+               <div className="grid grid-cols-2 gap-4">
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                    <p className="text-xs text-[#B3B3B3] uppercase tracking-wider mb-1">Clean Avg Days</p>
+                    <p className="text-2xl font-bold text-white">
+                      {data.explicit_stats.find((s: any) => s.is_explicit === false)?.avg_days.toFixed(1)}
+                    </p>
+                  </div>
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                    <p className="text-xs text-[#B3B3B3] uppercase tracking-wider mb-1">Explicit Avg Days</p>
+                    <p className="text-2xl font-bold text-[#1DB954]">
+                      {data.explicit_stats.find((s: any) => s.is_explicit === true)?.avg_days.toFixed(1)}
+                    </p>
+                  </div>
+               </div>
+            </div>
+          </div>
 
-      {expStat && clnStat && (
-        <InsightBox>
-          🔞 Explicit tracks rank better on average (position{" "}
-          <strong>{expStat.avg_position.toFixed(1)}</strong> vs{" "}
-          <strong>{clnStat.avg_position.toFixed(1)}</strong>) but fade{" "}
-          <strong>{Math.abs(Number(pctFaster))}% faster</strong> — lasting only{" "}
-          <strong>{expStat.median_days.toFixed(0)}</strong> median days compared to{" "}
-          <strong>{clnStat.median_days.toFixed(0)}</strong> for clean tracks.
-        </InsightBox>
+          <InsightBox>
+            🔞 Explicit content makes up <strong>{data.explicit_stats.find((s: any) => s.is_explicit === true)?.share_pct.toFixed(1)}%</strong> of the chart entries. 
+            On average, explicit tracks stay on the chart for 
+            <strong>{data.explicit_stats.find((s: any) => s.is_explicit === true)?.avg_days.toFixed(1)}</strong> days, 
+            compared to <strong>{data.explicit_stats.find((s: any) => s.is_explicit === false)?.avg_days.toFixed(1)}</strong> days for clean tracks.
+          </InsightBox>
+        </>
       )}
     </div>
   );
