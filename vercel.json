@@ -1,4 +1,14 @@
 {
-  "framework": "nextjs",
-  "cleanUrls": true
+  "functions": {
+    "backend/server.py": {
+      "runtime": "@vercel/python",
+      "includeFiles": "backend/*.csv"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/backend/server.py"
+    }
+  ]
 }
