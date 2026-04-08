@@ -30,11 +30,11 @@ export default function AlbumStructurePage() {
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <AlbumScatter tracks={data.tracks} pearsonR={data.pearson_r} />
-            <AlbumTypeBar data={data.type_stats} />
+            <AlbumTypeBar typeStats={data.type_stats} />
           </div>
 
           <div className="w-full">
-            <AlbumBinBox data={data.bin_stats} />
+            <AlbumBinBox tracks={data.tracks} />
           </div>
 
           <InsightBox>

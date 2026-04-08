@@ -33,7 +33,7 @@ export default function ArtistDominancePage() {
               lorenzY={data.lorenz_y}
               giniCoeff={data.gini_coeff}
             />
-            <TopArtistsBar data={data.artists} />
+            <TopArtistsBar artists={data.artists} />
           </div>
 
           <InsightBox>

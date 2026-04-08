@@ -29,19 +29,18 @@ export default function DomesticVsIntlPage() {
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <NationalityBars 
-              entryCounts={data.entry_counts} 
               natStats={data.nat_stats} 
             />
-            <NationalityArea data={data.weekly_ts} />
+            <NationalityArea weeklyTs={data.weekly_ts} />
           </div>
 
           <InsightBox>
             🌍 The dataset reveals clear trends in market share between domestic (UK) and international talent. 
             Currently, <strong>{data.entry_counts.find((d: any) => d.nationality === "UK")?.share_pct.toFixed(1)}%</strong> of 
             the chart entries are from UK artists, trending 
-            {data.nat_stats.find((d: any) => d.nationality === "UK")?.avg_rank_score > 
-             data.nat_stats.find((d: any) => d.nationality === "International")?.avg_rank_score 
-             ? " stronger " : " lower "} 
+            {data.nat_stats.find((d: any) => d.nationality === "UK")!.avg_position < 
+             data.nat_stats.find((d: any) => d.nationality === "International")!.avg_position 
+             ? " stronger (lower average rank) " : " lower "} 
             on average compared to international entries.
           </InsightBox>
         </>

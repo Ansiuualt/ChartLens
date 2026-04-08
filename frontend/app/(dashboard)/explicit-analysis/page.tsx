@@ -30,18 +30,18 @@ export default function ExplicitAnalysisPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <ExplicitViolins tracks={data.tracks} />
             <div className="flex flex-col gap-6">
-               <ExplicitDonut data={data.explicit_stats} />
+               <ExplicitDonut stats={data.explicit_stats} />
                <div className="grid grid-cols-2 gap-4">
                   <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                     <p className="text-xs text-[#B3B3B3] uppercase tracking-wider mb-1">Clean Avg Days</p>
                     <p className="text-2xl font-bold text-white">
-                      {data.explicit_stats.find((s: any) => s.is_explicit === false)?.avg_days.toFixed(1)}
+                      {data.explicit_stats.find((s: any) => s.is_explicit === false)?.mean_days.toFixed(1)}
                     </p>
                   </div>
                   <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                     <p className="text-xs text-[#B3B3B3] uppercase tracking-wider mb-1">Explicit Avg Days</p>
                     <p className="text-2xl font-bold text-[#1DB954]">
-                      {data.explicit_stats.find((s: any) => s.is_explicit === true)?.avg_days.toFixed(1)}
+                      {data.explicit_stats.find((s: any) => s.is_explicit === true)?.mean_days.toFixed(1)}
                     </p>
                   </div>
                </div>
@@ -51,8 +51,8 @@ export default function ExplicitAnalysisPage() {
           <InsightBox>
             🔞 Explicit content makes up <strong>{data.explicit_stats.find((s: any) => s.is_explicit === true)?.share_pct.toFixed(1)}%</strong> of the chart entries. 
             On average, explicit tracks stay on the chart for 
-            <strong>{data.explicit_stats.find((s: any) => s.is_explicit === true)?.avg_days.toFixed(1)}</strong> days, 
-            compared to <strong>{data.explicit_stats.find((s: any) => s.is_explicit === false)?.avg_days.toFixed(1)}</strong> days for clean tracks.
+            <strong>{data.explicit_stats.find((s: any) => s.is_explicit === true)?.mean_days.toFixed(1)}</strong> days, 
+            compared to <strong>{data.explicit_stats.find((s: any) => s.is_explicit === false)?.mean_days.toFixed(1)}</strong> days for clean tracks.
           </InsightBox>
         </>
       )}

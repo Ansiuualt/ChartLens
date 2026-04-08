@@ -31,23 +31,19 @@ export default function CollabsVsSoloPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <StatCard
               label="Solo Avg Retention"
-              value={`${data.collab_stats.find((s: any) => s.is_collaboration === false)?.avg_retention.toFixed(1)} days`}
-              trend="neutral"
+              value={`${data.collab_stats.find((s: any) => s.is_collaboration === false)?.mean_days.toFixed(1)} days`}
             />
             <StatCard
               label="Collab Avg Retention"
-              value={`${data.collab_stats.find((s: any) => s.is_collaboration === true)?.avg_retention.toFixed(1)} days`}
-              trend="up"
+              value={`${data.collab_stats.find((s: any) => s.is_collaboration === true)?.mean_days.toFixed(1)} days`}
             />
             <StatCard
               label="Solo Peak Velocity"
-              value={data.collab_stats.find((s: any) => s.is_collaboration === false)?.avg_velocity.toFixed(2)}
-              trend="neutral"
+              value={data.collab_stats.find((s: any) => s.is_collaboration === false)?.mean_velocity.toFixed(2) || "0.00"}
             />
             <StatCard
               label="Collab Peak Velocity"
-              value={data.collab_stats.find((s: any) => s.is_collaboration === true)?.avg_velocity.toFixed(2)}
-              trend="up"
+              value={data.collab_stats.find((s: any) => s.is_collaboration === true)?.mean_velocity.toFixed(2) || "0.00"}
             />
           </div>
 
@@ -59,8 +55,8 @@ export default function CollabsVsSoloPage() {
           <InsightBox>
             🤝 Collaborations often serve as "chart fuel". 
             The data suggests that tracks featuring multiple artists typically see a 
-            <strong>{((data.collab_stats.find((s: any) => s.is_collaboration === true)?.avg_velocity / 
-                data.collab_stats.find((s: any) => s.is_collaboration === false)?.avg_velocity - 1) * 100).toFixed(1)}%</strong> 
+            <strong>{((data.collab_stats.find((s: any) => s.is_collaboration === true)!.mean_velocity / 
+                data.collab_stats.find((s: any) => s.is_collaboration === false)!.mean_velocity - 1) * 100).toFixed(1)}%</strong> 
             higher chart velocity on average compared to solo efforts within the UK Top 50.
           </InsightBox>
         </>
