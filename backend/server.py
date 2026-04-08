@@ -5,6 +5,7 @@ Serves analytics data from the pipeline as JSON endpoints.
 
 import sys
 import pathlib
+import os
 from typing import Optional
 
 import numpy as np
@@ -26,15 +27,21 @@ from pipeline.metrics import (
 
 app = FastAPI(title="ChartLens API", version="1.0.0")
 
+allowed_origins = ["http://localhost:3000", "http://127.0.0.1:3000"]
+frontend_url = os.getenv("FRONTEND_URL")
+if frontend_url:
+    allowed_origins.append(frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=["*"], # Use ["*"] to allow all, or replace with `allowed_origins` for stricter security
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # ── Load data once at startup ────────────────────────────────────────────
-DF_RAW: pd.DataFrame = load_and_clean()
+CSV_PATH = pathlib.Path(__file__).resolve().parent / "Atlantic_United_Kingdom.csv"
+DF_RAW: pd.DataFrame = load_and_clean(CSV_PATH)
 
 
 def _apply_filters(
