@@ -31,7 +31,7 @@ export default function ExplicitAnalysisPage() {
             <ExplicitViolins tracks={data.tracks} />
             <div className="flex flex-col gap-6">
                <ExplicitDonut stats={data.explicit_stats} />
-               <div className="grid grid-cols-2 gap-4">
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                     <p className="text-xs text-[#B3B3B3] uppercase tracking-wider mb-1">Clean Avg Days</p>
                     <p className="text-2xl font-bold text-white">

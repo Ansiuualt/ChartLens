@@ -39,14 +39,14 @@ export default function OverviewPage() {
       ) : (
         <>
           {/* Row 1 — 3 KPIs */}
-          <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
             <KpiCard value={data.unique_songs.toLocaleString()} label="Unique Songs Charted" />
             <KpiCard value={data.unique_artists.toLocaleString()} label="Unique Artists" />
-            <KpiCard value={data.gini_coeff.toFixed(3)} label="Gini Coefficient" />
+            <KpiCard value={data.gini_coeff.toFixed(3)} label="Gini Coefficient" className="sm:col-span-2 lg:col-span-1" />
           </div>
 
           {/* Row 2 — 3 KPIs */}
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
             <KpiCard
               value={`${data.uk_share_pct.toFixed(1)}% / ${data.intl_share_pct.toFixed(1)}%`}
               label="UK / International Split"
@@ -58,6 +58,7 @@ export default function OverviewPage() {
             <KpiCard
               value={`${data.date_start} — ${data.date_end}`}
               label="Date Range Covered"
+              className="sm:col-span-2 lg:col-span-1"
             />
           </div>
 

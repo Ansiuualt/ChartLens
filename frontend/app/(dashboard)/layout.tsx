@@ -42,14 +42,17 @@ export default function DashboardLayout({
       <div id="dashboard-content" className="relative flex flex-col min-h-screen bg-background">
         <TopNavbar onToggleFilter={() => setIsFilterOpen(!isFilterOpen)} isFilterOpen={isFilterOpen} />
         
-        <div className="flex flex-1 items-start w-full overflow-hidden">
-          <main className="flex-1 min-w-0 p-6">
+        <div className="flex flex-1 items-start w-full relative">
+          <main className={cn(
+            "flex-1 min-w-0 p-4 md:p-6 transition-all duration-300",
+            isFilterOpen ? "lg:mr-0" : ""
+          )}>
             <div className="max-w-5xl mx-auto">
               {children}
             </div>
           </main>
 
-          <SidebarFilters isOpen={isFilterOpen} />
+          <SidebarFilters isOpen={isFilterOpen} onClose={() => setIsFilterOpen(false)} />
         </div>
       </div>
     </FilterProvider>

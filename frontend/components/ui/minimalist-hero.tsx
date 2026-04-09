@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { LucideIcon, Music } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -57,6 +57,8 @@ export const MinimalistHero = ({
   locationText,
   className,
 }: MinimalistHeroProps) => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
   return (
     <div
       className={cn(
@@ -64,6 +66,39 @@ export const MinimalistHero = ({
         className
       )}
     >
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/95 backdrop-blur-md md:hidden"
+          >
+            <button 
+              onClick={() => setIsMenuOpen(false)}
+              className="absolute top-8 right-8 text-foreground/60 hover:text-foreground"
+            >
+              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <nav className="flex flex-col items-center space-y-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-2xl font-bold tracking-widest text-foreground/60 hover:text-[#1DB954] transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <header className="z-30 flex w-full max-w-7xl items-center justify-between">
         <motion.div
@@ -88,6 +123,7 @@ export const MinimalistHero = ({
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
+          onClick={() => setIsMenuOpen(true)}
           className="flex flex-col space-y-1.5 md:hidden"
           aria-label="Open menu"
         >
