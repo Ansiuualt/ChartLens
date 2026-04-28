@@ -1,22 +1,22 @@
 "use client";
 
 import { useFilters } from "@/hooks/use-filters";
-import { useQ1 } from "@/hooks/use-chart-data";
+import { useDominance } from "@/hooks/use-chart-data";
 import { PageHeader } from "@/components/page-header";
 import { LoadingSpinner } from "@/components/loading-spinner";
 import { InsightBox } from "@/components/insight-box";
-import { LorenzCurve } from "@/components/charts/lorenz-curve";
-import { TopArtistsBar } from "@/components/charts/top-artists-bar";
+import { DominanceBar } from "@/components/charts/dominance-bar";
+import { DominanceGini } from "@/components/charts/dominance-gini";
 
 export default function ArtistDominancePage() {
   const { filters } = useFilters();
-  const { data, isLoading } = useQ1(filters);
+  const { data, isLoading } = useDominance(filters);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <PageHeader
         title="Artist Dominance"
-        subtitle="Measuring market concentration and the Lorenz curve of chart performance."
+        subtitle="Measuring market concentration and the leaderboard of US Top 50 chart dominance."
       />
 
       {isLoading || !data ? (
@@ -28,12 +28,12 @@ export default function ArtistDominancePage() {
       ) : (
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <LorenzCurve
+            <DominanceGini
               lorenzX={data.lorenz_x}
               lorenzY={data.lorenz_y}
               giniCoeff={data.gini_coeff}
             />
-            <TopArtistsBar artists={data.artists} />
+            <DominanceBar artists={data.artists} />
           </div>
 
           <InsightBox>
@@ -43,8 +43,10 @@ export default function ArtistDominancePage() {
               : data.gini_coeff > 0.4 
               ? " moderately concentrated " 
               : " relatively distributed "} 
-            market. The visualization highlights how a small percentage of top artists (like <strong>{data.artists[0]?.artist}</strong>) 
-            account for a disproportionate share of total chart impact in the UK Top 50.
+            market. The top artist, <strong>{data.artists[0]?.artist}</strong>, commands{" "}
+            <strong>{data.artists[0]?.dominance_share_pct.toFixed(1)}%</strong> of all chart appearances
+            with <strong>{data.artists[0]?.unique_songs}</strong> unique songs
+            and an average rank of <strong>#{data.artists[0]?.avg_rank.toFixed(1)}</strong>.
           </InsightBox>
         </>
       )}

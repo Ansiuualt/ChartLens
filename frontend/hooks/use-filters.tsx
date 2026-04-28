@@ -19,9 +19,12 @@ export function FilterProvider({ children }: { children: ReactNode }) {
   const [filters, setFilters] = useState<FilterState>({
     dateStart: "",
     dateEnd: "",
-    nationality: "Both",
     explicit: "All",
     albumTypes: [],
+    artists: [],
+    songs: [],
+    rankMin: 1,
+    rankMax: 50,
   });
 
   useEffect(() => {

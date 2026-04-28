@@ -19,20 +19,17 @@ export default function DashboardLayout({
     { label: "ABOUT ME", href: "/about" },
   ];
 
-  // Smooth scroll handler inside the Minimalist Hero links is natively supported by <a> tags with hashes.
-  // We'll add smooth scrolling to the HTML element in global.css.
-
   return (
     <FilterProvider>
       <MinimalistHero
         logoText="ChartLens"
         navLinks={navLinks}
-        mainText="Visual analytics for the UK Spotify Top 50. Dive deep into artist dominance, collaborations, and domestic vs international trends."
+        mainText="Visual analytics for the US Spotify Top 50 Playlist. Dive deep into song performance, ranking trends, artist dominance, and popularity patterns."
         readMoreLink="#dashboard-content"
-        imageSrc="https://img1.picmix.com/output/stamp/normal/4/4/6/7/2647644_2e11b.png"
-        imageAlt="Spotify Stats"
+        imageSrc="/hero.png"
+        imageAlt="Upset Drake"
         overlayText={{
-          part1: "UK",
+          part1: "US",
           part2: "Top Charts.",
         }}
         socialLinks={[]}

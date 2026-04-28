@@ -1,48 +1,61 @@
-# 🎵 ChartLens: UK Music Charts Analytics
+# 🎵 ChartLens — US Spotify Top 50 Analytics
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?style=for-the-badge&logo=vercel)](https://vercel.com/)
 
-**ChartLens** is a premium, high-performance analytics dashboard designed to visualize and decode the trends of the UK Spotify Top 50. Originally evolved from a Streamlit implementation, it now features a state-of-the-art full-stack architecture for sub-second data processing and immersive visualizations.
+**ChartLens** is a premium, interactive analytics dashboard that visualizes performance trends of the **United States Spotify Top 50 Playlist**. It combines a high-speed Python data pipeline with a modern React frontend to deliver deep, real-time insights into song popularity, artist dominance, ranking trajectories, and content patterns.
 
-![ChartLens Hero Banner](assets/banner.png)
+---
 
 ## ✨ Core Features
 
-*   **⚡ High-Speed Pipeline**: Seamless integration of Python/Pandas data processing with a FastAPI JSON backend.
-*   **🎨 Premium UI**: A dark, Spotify-inspired interface featuring **Glassmorphism**, **Framer Motion** transitions, and a **Three.js** shader hero.
-*   **📈 Deep Analysis Modules**:
-    *   **Artist Dominance**: Gini coefficient calculations and Lorenz curve visualizations.
-    *   **Domestic vs International**: Real-time market share comparisons.
-    *   **Collaborations**: Metric-driven impact analysis of solo vs. featured tracks.
-    *   **Explicit Content**: Prevalence and performance tracking.
-    *   **Album Structure**: Correlation analysis between track count and chart longevity.
-*   **🎯 Smart Filtering**: Global state management for filtering by date, nationality, and album type.
+- **⚡ High-Speed Pipeline** — Python/Pandas data processing with a FastAPI JSON backend for sub-second analytics.
+- **🎨 Premium UI** — Dark, Spotify-inspired interface with Framer Motion animations, glassmorphism, and interactive Plotly charts.
+- **📊 Six Analytical Modules**:
 
-## 📸 Dashboard Gallery
+| Module | What It Shows |
+|---|---|
+| **Dashboard Overview** | 9 color-coded KPI cards (median days, avg rank, volatility, popularity, Gini index, explicit %) |
+| **Timeline Explorer** | Song lifespan bars (cyan gradient) + daily unique songs area chart |
+| **Ranking Trends** | Weekly-averaged rank trajectories with HIT/MID/LOW zone bands |
+| **Artist Dominance** | Top 20 leaderboard (gold gradient) + Lorenz curve / Gini coefficient |
+| **Popularity Scatter** | Rank vs popularity bubbles with regression trendline + quadrant labels |
+| **Explicit Analysis** | Clean vs explicit grouped bars + donut chart + stat cards |
 
-| Overview Dashboard | Artist Dominance |
-| :---: | :---: |
-| ![Overview](assets/overview.png) | ![Artist Analysis](assets/artist.png) |
+- **🎯 Smart Filtering** — Sidebar with searchable Artist/Song multi-select dropdowns, date range, rank range slider, album type, and explicit content toggle.
+
+---
 
 ## 🏗️ Architecture
 
 ```mermaid
 graph TD
-    User((User)) -->|Browser| Frontend[Next.js 15 Client]
+    User((User)) -->|Browser| Frontend[Next.js 16 Client]
     Frontend -->|SWR / Fetch| API[FastAPI Backend]
-    API -->|Pandas / NumPy| Analytics[Data Pipeline]
-    Analytics -->|Read| CSV[(UK Charts Data)]
-    Frontend -->|Three.js| GL[GPU Shader Animation]
+    API -->|Pandas / NumPy| Pipeline[Data Pipeline]
+    Pipeline -->|Read| CSV[(US Top 50 Data)]
+    API -->|JSON| Frontend
 ```
 
-## 🚀 Technical Stack
+**Data Flow:**
+1. `cleaner.py` loads and cleans the raw Spotify chart CSV
+2. `metrics.py` computes analytics (KPIs, timelines, rankings, Lorenz/Gini, correlations)
+3. `server.py` exposes 7 RESTful endpoints with filter support
+4. Next.js frontend fetches via SWR hooks and renders interactive Plotly charts
 
-- **Frontend**: Next.js 15, TypeScript, Tailwind CSS v4, shadcn/ui, Plotly.js, Three.js, Framer Motion.
-- **Backend**: FastAPI (Python), Pandas, NumPy, Uvicorn.
-- **Infrastructure**: Vercel (Next.js + Python Runtime).
+---
+
+## 🚀 Tech Stack
+
+| Layer | Technologies |
+|---|---|
+| **Frontend** | Next.js 16, TypeScript, Tailwind CSS v4, Plotly.js, Framer Motion, Lucide Icons |
+| **Backend** | FastAPI, Python 3.10+, Pandas, NumPy, SciPy, Uvicorn |
+| **Deployment** | Vercel (Next.js + Python Serverless Runtime) |
+
+---
 
 ## 🛠️ Local Development
 
@@ -52,23 +65,29 @@ graph TD
 
 ### Setup
 
-1.  **Clone & Install Dependencies**:
-    ```bash
-    git clone https://github.com/Ansiuualt/ChartLens.git
-    cd uk-charts-analyzer
-    npm install             # Installs root, frontend, and backend bridged deps
-    ```
+1. **Clone & Install**
+   ```bash
+   git clone https://github.com/Ansiuualt/ChartLens.git
+   cd uk-charts-analyzer
+   ```
 
-2.  **Environment Setup**:
-    Ensure you have your data CSV file in the root or `backend/` directory as specified in `cleaner.py`.
+2. **Backend**
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   python server.py
+   ```
+   API runs at `http://localhost:8000` — Swagger docs at `/docs`
 
-3.  **Run Development Servers**:
-    ```bash
-    # Run both Frontend and Backend concurrently
-    npm run dev
-    ```
-    - Dashboard: `http://localhost:3000`
-    - API Docs: `http://localhost:8000/docs` (if running locally)
+3. **Frontend**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+   Dashboard runs at `http://localhost:3000`
+
+> The frontend auto-proxies `/api/*` to `localhost:8000` in development via `next.config.ts`.
 
 ---
 
@@ -76,18 +95,65 @@ graph TD
 
 ```text
 .
-├── backend/            # FastAPI Server & Python Analytics Pipeline
-│   ├── server.py       # API Entry point
-│   ├── pipeline/       # Cleaning & Metrics logic
-│   └── *.csv           # Datasets
-├── frontend/           # Next.js 15 Client
-│   ├── app/            # App Router (Pages & Layouts)
-│   ├── components/     # UI Components & Plotly Chart Wrappers
-│   └── hooks/          # Custom SWR Data Hooks
-├── assets/             # Project Images & Media
-├── vercel.json         # Unified Deployment Config
-└── package.json        # Root-level bridge for Vercel & Scripts
+├── backend/
+│   ├── server.py                 # FastAPI entry point (7 endpoints)
+│   ├── pipeline/
+│   │   ├── cleaner.py            # Data loading & cleaning
+│   │   └── metrics.py            # Analytics computations
+│   ├── Atlantic_United_States.csv  # US Top 50 dataset
+│   └── requirements.txt
+├── frontend/
+│   ├── app/
+│   │   ├── layout.tsx            # Root layout + metadata
+│   │   ├── (dashboard)/
+│   │   │   ├── layout.tsx        # Dashboard shell + hero + sidebar
+│   │   │   ├── page.tsx          # Overview (KPI cards)
+│   │   │   ├── timeline/         # Timeline Explorer
+│   │   │   ├── ranking/          # Ranking Trends
+│   │   │   ├── artist-dominance/ # Artist Dominance
+│   │   │   ├── popularity/       # Popularity Scatter
+│   │   │   └── explicit-analysis/# Explicit Content
+│   │   └── about/                # About page
+│   ├── components/
+│   │   ├── charts/               # Plotly chart wrappers
+│   │   ├── nav-sidebar.tsx       # Top navigation
+│   │   ├── sidebar-filters.tsx   # Filter panel
+│   │   └── kpi-card.tsx          # Color-coded KPI cards
+│   ├── hooks/                    # SWR data hooks + filter context
+│   ├── lib/                      # API client + types
+│   └── public/                   # Static assets (hero.png, profile.png)
+├── vercel.json                   # Vercel deployment config
+└── .gitignore
 ```
 
 ---
-Built with 🎵 and ☕ by [Ansiuualt](https://github.com/Ansiuualt)
+
+## 🌐 API Endpoints
+
+| Endpoint | Description |
+|---|---|
+| `GET /api/meta` | Available artists, songs, album types |
+| `GET /api/overview` | KPI summary (9 metrics) |
+| `GET /api/timeline` | Song lifespans + daily counts |
+| `GET /api/ranking` | Rank trajectories for selected songs |
+| `GET /api/dominance` | Artist leaderboard + Lorenz/Gini |
+| `GET /api/popularity` | Popularity vs rank scatter data |
+| `GET /api/explicit` | Explicit vs clean performance stats |
+
+All endpoints support query filters: `date_start`, `date_end`, `explicit`, `album_types`, `artists`, `songs`, `rank_min`, `rank_max`.
+
+---
+
+## 🚢 Deployment
+
+The project deploys to **Vercel** as a unified monorepo:
+
+- **Frontend** — Built by `@vercel/next` from `frontend/package.json`
+- **Backend** — Runs as a Python serverless function via `@vercel/python`
+- **Routing** — `vercel.json` rewrites `/api/*` to the Python backend
+
+Push to `main` and Vercel auto-deploys.
+
+---
+
+Built with 🎵 and ☕ by [Anshuman Maharana](https://github.com/Ansiuualt)

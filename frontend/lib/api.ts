@@ -7,9 +7,12 @@ function buildParams(filters?: FilterState): string {
   const params = new URLSearchParams();
   if (filters.dateStart) params.set("date_start", filters.dateStart);
   if (filters.dateEnd) params.set("date_end", filters.dateEnd);
-  if (filters.nationality !== "Both") params.set("nationality", filters.nationality);
   if (filters.explicit !== "All") params.set("explicit", filters.explicit);
   if (filters.albumTypes.length > 0) params.set("album_types", filters.albumTypes.join(","));
+  if (filters.artists.length > 0) params.set("artists", filters.artists.join("|"));
+  if (filters.songs.length > 0) params.set("songs", filters.songs.join("|"));
+  if (filters.rankMin > 1) params.set("rank_min", String(filters.rankMin));
+  if (filters.rankMax < 50) params.set("rank_max", String(filters.rankMax));
   return "?" + params.toString();
 }
 
@@ -23,9 +26,9 @@ async function fetchJson<T>(path: string, filters?: FilterState): Promise<T> {
 export const api = {
   meta: () => fetchJson<import("./types").MetaData>("/api/meta"),
   overview: (f?: FilterState) => fetchJson<import("./types").OverviewData>("/api/overview", f),
-  q1: (f?: FilterState) => fetchJson<import("./types").Q1Data>("/api/q1", f),
-  q2: (f?: FilterState) => fetchJson<import("./types").Q2Data>("/api/q2", f),
-  q3: (f?: FilterState) => fetchJson<import("./types").Q3Data>("/api/q3", f),
-  q4: (f?: FilterState) => fetchJson<import("./types").Q4Data>("/api/q4", f),
-  q5: (f?: FilterState) => fetchJson<import("./types").Q5Data>("/api/q5", f),
+  timeline: (f?: FilterState) => fetchJson<import("./types").TimelineData>("/api/timeline", f),
+  ranking: (f?: FilterState) => fetchJson<import("./types").RankingData>("/api/ranking", f),
+  dominance: (f?: FilterState) => fetchJson<import("./types").DominanceData>("/api/dominance", f),
+  popularity: (f?: FilterState) => fetchJson<import("./types").PopularityData>("/api/popularity", f),
+  explicit: (f?: FilterState) => fetchJson<import("./types").ExplicitData>("/api/explicit", f),
 };

@@ -1,53 +1,20 @@
 """
 ChartLens — Data Cleaning Pipeline
-Loads Atlantic_United_Kingdom.csv and produces an analysis-ready DataFrame.
+Loads Atlantic_United_States.csv and produces an analysis-ready DataFrame.
 """
 
-import re
 import pathlib
 import pandas as pd
 import numpy as np
 
-# ── UK artist set (rule-based nationality tagging) ──────────────────────────
-UK_ARTISTS: set[str] = {
-    "Dua Lipa", "Ed Sheeran", "Harry Styles", "Sam Smith",
-    "Stormzy", "Dave", "Central Cee", "Coldplay", "Adele",
-    "Arctic Monkeys", "The Killers", "Charli XCX", "cassö",
-    "RAYE", "D-Block Europe", "Jorja Smith", "Jess Glynne",
-    "Anne-Marie", "Ella Henderson", "Switch Disco", "venbee",
-    "goddard.", "Tom Grennan", "Mabel",
-}
-
-_COLLAB_RE = re.compile(r"\s*(?:&|feat\.|ft\.|\bx\b)\s*", re.IGNORECASE)
-
-
-def _split_artists(artist_str: str) -> list[str]:
-    """Split a combined artist string into individual names."""
-    return [a.strip() for a in _COLLAB_RE.split(artist_str) if a.strip()]
-
-
-def _tag_nationality(artist_str: str) -> str:
-    """Return 'UK' if *any* collaborator is in the UK set, else 'International'."""
-    parts = _split_artists(artist_str)
-    for p in parts:
-        if p in UK_ARTISTS:
-            return "UK"
-    return "International"
-
-
-def _is_collaboration(artist_str: str) -> bool:
-    """True when the artist field contains a collaboration marker."""
-    return bool(_COLLAB_RE.search(artist_str))
-
-
 def load_and_clean(csv_path: str | pathlib.Path | None = None) -> pd.DataFrame:
     """
-    Execute the full 6-step cleaning pipeline.
+    Execute the full cleaning pipeline.
 
     Returns a DataFrame with derived columns ready for analysis.
     """
     if csv_path is None:
-        csv_path = pathlib.Path(__file__).resolve().parents[1] / "Atlantic_United_Kingdom.csv"
+        csv_path = pathlib.Path(__file__).resolve().parents[1] / "Atlantic_United_States.csv"
     else:
         csv_path = pathlib.Path(csv_path)
 
@@ -74,23 +41,30 @@ def load_and_clean(csv_path: str | pathlib.Path | None = None) -> pd.DataFrame:
     df["popularity"] = df["popularity"].clip(0, 100)
 
     # ── Step 5: Derived columns ──────────────────────────────────────────
-    df["rank_score"] = 51 - df["position"]
+    df["duration_min"] = df["duration_ms"] / 60_000
 
-    # Per-track aggregates (days_on_chart, peak_position)
+    # Sort to ensure rolling calculations are chronological
+    df = df.sort_values(["song", "artist", "date"])
+    df["popularity_trend"] = df.groupby(["song", "artist"])["popularity"].transform(
+        lambda x: x.rolling(window=7, min_periods=1).mean()
+    )
+
+    # Per-track aggregates
     track_stats = (
         df.groupby(["song", "artist"])
         .agg(
             days_on_chart=("date", "nunique"),
-            peak_position=("position", "min"),
+            avg_position=("position", "mean"),
+            best_rank=("position", "min"),
+            rank_volatility=("position", "std"),
         )
         .reset_index()
     )
-    df = df.merge(track_stats, on=["song", "artist"], how="left")
+    
+    # Fill NaN volatility (for songs with only 1 appearance)
+    track_stats["rank_volatility"] = track_stats["rank_volatility"].fillna(0)
 
-    df["is_collaboration"] = df["artist"].apply(_is_collaboration)
-    df["chart_velocity"] = df.groupby(["song", "artist"])["rank_score"].transform("median") / df["days_on_chart"]
-    df["duration_min"] = df["duration_ms"] / 60_000
-    df["nationality"] = df["artist"].apply(_tag_nationality)
+    df = df.merge(track_stats, on=["song", "artist"], how="left")
 
     # ── Step 6: Drop duplicate (date, position) rows ─────────────────────
     df = df.drop_duplicates(subset=["date", "position"], keep="first")

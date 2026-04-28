@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ChartLens — UK Spotify Top 50 Analytics",
+  title: "ChartLens — US Spotify Top 50 Analytics",
   description:
-    "Interactive analytics dashboard analyzing the UK Spotify Top 50 daily charts. Explore artist dominance, domestic vs international breakdown, collaboration influence, explicit content impact, and album structure patterns.",
+    "Interactive analytics dashboard analyzing the US Spotify Top 50 playlist. Explore timeline trends, ranking trajectories, artist dominance, popularity patterns, and explicit content analysis.",
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased bg-background text-foreground min-h-screen">
+      <body className="antialiased bg-background text-foreground min-h-screen" suppressHydrationWarning>
         {children}
       </body>
     </html>

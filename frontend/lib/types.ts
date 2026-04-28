@@ -1,4 +1,4 @@
-// ── API response types ──────────────────────────────────────────────────
+// ── API response types (US Market) ──────────────────────────────────────
 
 export interface MetaData {
   date_min: string;
@@ -7,93 +7,118 @@ export interface MetaData {
   total_rows: number;
   unique_songs: number;
   unique_artists: number;
+  artists: string[];
+  songs: string[];
 }
 
 export interface OverviewData {
+  days_on_chart_median: number;
+  avg_rank: number;
+  rank_volatility_index: number;
+  popularity_score: number;
+  artist_dominance_index: number;
+  explicit_share_pct: number;
   unique_songs: number;
   unique_artists: number;
-  gini_coeff: number;
-  uk_share_pct: number;
-  intl_share_pct: number;
   top_artist_name: string;
-  top_artist_share: number;
+  top_artist_appearances: number;
   date_start: string;
   date_end: string;
   error?: string;
 }
 
-export interface ArtistRecord {
+// ── Timeline Explorer ───────────────────────────────────────────────────
+
+export interface DailyPosition {
+  date: string;
+  song: string;
   artist: string;
-  total_rank_score: number;
-  monopoly_share_pct: number;
+  position: number;
+  popularity: number;
 }
 
-export interface Q1Data {
+export interface SongSpan {
+  song: string;
+  artist: string;
+  first_date: string;
+  last_date: string;
+  days_on_chart: number;
+  best_position: number;
+  avg_popularity: number;
+}
+
+export interface DailyCount {
+  date: string;
+  unique_songs: number;
+}
+
+export interface TimelineData {
+  daily_positions: DailyPosition[];
+  song_spans: SongSpan[];
+  daily_counts: DailyCount[];
+  error?: string;
+}
+
+// ── Ranking Trends ──────────────────────────────────────────────────────
+
+export interface RankingEntry {
+  date: string;
+  song: string;
+  artist: string;
+  position: number;
+  popularity: number;
+}
+
+export interface RankingData {
+  trends: RankingEntry[];
+  available_songs: string[];
+  error?: string;
+}
+
+// ── Artist Dominance ────────────────────────────────────────────────────
+
+export interface ArtistRecord {
+  artist: string;
+  total_appearances: number;
+  avg_rank: number;
+  best_rank: number;
+  avg_popularity: number;
+  unique_songs: number;
+  dominance_share_pct: number;
+}
+
+export interface DominanceData {
+  artists: ArtistRecord[];
+  all_artists: ArtistRecord[];
   gini_coeff: number;
   lorenz_x: number[];
   lorenz_y: number[];
-  artists: ArtistRecord[];
-  all_artists: ArtistRecord[];
   error?: string;
 }
 
-export interface EntryCount {
-  nationality: string;
-  count: number;
-  share_pct: number;
-}
+// ── Popularity vs Rank ──────────────────────────────────────────────────
 
-export interface NatStat {
-  nationality: string;
-  avg_position: number;
-  avg_popularity: number;
-  median_days: number;
-  mean_days: number;
-  track_count: number;
-}
-
-export interface WeeklyEntry {
-  week: string;
-  nationality: string;
-  entries: number;
-}
-
-export interface Q2Data {
-  entry_counts: EntryCount[];
-  nat_stats: NatStat[];
-  weekly_ts: WeeklyEntry[];
-  error?: string;
-}
-
-export interface CollabStat {
-  is_collaboration: boolean;
-  n_tracks: number;
-  median_days: number;
-  mean_days: number;
-  median_velocity: number;
-  mean_velocity: number;
-  avg_popularity: number;
-  median_popularity: number;
-  type: string;
-}
-
-export interface CollabTrack {
+export interface PopularityTrack {
   song: string;
   artist: string;
-  days_on_chart: number;
-  peak_position: number;
   avg_position: number;
   avg_popularity: number;
-  chart_velocity: number;
-  is_collaboration: boolean;
-  type: string;
+  days_on_chart: number;
+  is_explicit: boolean;
+  album_type: string;
+  duration_min: number;
+  rank_volatility: number;
+  best_rank: number;
+  album_cover_url: string;
 }
 
-export interface Q3Data {
-  collab_stats: CollabStat[];
-  tracks: CollabTrack[];
+export interface PopularityData {
+  tracks: PopularityTrack[];
+  correlation: number;
   error?: string;
 }
+
+// ── Explicit Analysis ───────────────────────────────────────────────────
 
 export interface ExplicitStat {
   is_explicit: boolean;
@@ -117,42 +142,9 @@ export interface ExplicitTrack {
   label: string;
 }
 
-export interface Q4Data {
+export interface ExplicitData {
   explicit_stats: ExplicitStat[];
   tracks: ExplicitTrack[];
-  error?: string;
-}
-
-export interface BinStat {
-  album_size_bin: string;
-  median_days: number;
-  mean_days: number;
-  n_tracks: number;
-}
-
-export interface TypeStat {
-  album_type: string;
-  median_days: number;
-  mean_days: number;
-  n_tracks: number;
-}
-
-export interface AlbumTrack {
-  song: string;
-  artist: string;
-  days_on_chart: number;
-  total_tracks: number;
-  album_type: string;
-  album_size_bin: string;
-  peak_position: number;
-  album_cover_url: string;
-}
-
-export interface Q5Data {
-  pearson_r: number;
-  bin_stats: BinStat[];
-  type_stats: TypeStat[];
-  tracks: AlbumTrack[];
   error?: string;
 }
 
@@ -161,7 +153,10 @@ export interface Q5Data {
 export interface FilterState {
   dateStart: string;
   dateEnd: string;
-  nationality: "Both" | "UK" | "International";
   explicit: "All" | "Clean" | "Explicit";
   albumTypes: string[];
+  artists: string[];
+  songs: string[];
+  rankMin: number;
+  rankMax: number;
 }

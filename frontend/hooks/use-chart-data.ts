@@ -12,22 +12,22 @@ export function useOverview(filters: FilterState) {
   return useSWR(filterKey("overview", filters), () => api.overview(filters));
 }
 
-export function useQ1(filters: FilterState) {
-  return useSWR(filterKey("q1", filters), () => api.q1(filters));
+export function useTimeline(filters: FilterState) {
+  return useSWR(filterKey("timeline", filters), () => api.timeline(filters));
 }
 
-export function useQ2(filters: FilterState) {
-  return useSWR(filterKey("q2", filters), () => api.q2(filters));
+export function useRanking(filters: FilterState) {
+  return useSWR(filterKey("ranking", filters), () => api.ranking(filters));
 }
 
-export function useQ3(filters: FilterState) {
-  return useSWR(filterKey("q3", filters), () => api.q3(filters));
+export function useDominance(filters: FilterState) {
+  return useSWR(filterKey("dominance", filters), () => api.dominance(filters));
 }
 
-export function useQ4(filters: FilterState) {
-  return useSWR(filterKey("q4", filters), () => api.q4(filters));
+export function usePopularity(filters: FilterState) {
+  return useSWR(filterKey("popularity", filters), () => api.popularity(filters));
 }
 
-export function useQ5(filters: FilterState) {
-  return useSWR(filterKey("q5", filters), () => api.q5(filters));
+export function useExplicit(filters: FilterState) {
+  return useSWR(filterKey("explicit", filters), () => api.explicit(filters));
 }

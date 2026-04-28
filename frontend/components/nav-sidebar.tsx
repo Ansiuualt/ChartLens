@@ -8,20 +8,20 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
   Crown,
-  Globe,
-  Users,
+  Clock,
+  TrendingUp,
+  Activity,
   ShieldAlert,
-  Disc3,
   Music,
 } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: "/", label: "Overview", icon: LayoutDashboard },
+  { href: "/timeline", label: "Timeline Explorer", icon: Clock },
+  { href: "/ranking", label: "Ranking Trends", icon: TrendingUp },
   { href: "/artist-dominance", label: "Artist Dominance", icon: Crown },
-  { href: "/domestic-vs-intl", label: "Domestic vs Intl", icon: Globe },
-  { href: "/collabs-vs-solo", label: "Collabs vs Solo", icon: Users },
+  { href: "/popularity", label: "Popularity Scatter", icon: Activity },
   { href: "/explicit-analysis", label: "Explicit Analysis", icon: ShieldAlert },
-  { href: "/album-structure", label: "Album Structure", icon: Disc3 },
 ];
 
 export function TopNavbar({ 

@@ -1,22 +1,26 @@
 "use client";
 
+import type { ExplicitStat } from "@/lib/types";
 import { useFilters } from "@/hooks/use-filters";
-import { useQ4 } from "@/hooks/use-chart-data";
+import { useExplicit } from "@/hooks/use-chart-data";
 import { PageHeader } from "@/components/page-header";
 import { LoadingSpinner } from "@/components/loading-spinner";
 import { InsightBox } from "@/components/insight-box";
-import { ExplicitViolins } from "@/components/charts/explicit-violins";
+import { ExplicitSplit } from "@/components/charts/explicit-split";
 import { ExplicitDonut } from "@/components/charts/explicit-donut";
 
 export default function ExplicitAnalysisPage() {
   const { filters } = useFilters();
-  const { data, isLoading } = useQ4(filters);
+  const { data, isLoading } = useExplicit(filters);
+
+  const getClean = (stats: ExplicitStat[]) => stats.find((s) => !s.is_explicit);
+  const getExplicit = (stats: ExplicitStat[]) => stats.find((s) => s.is_explicit);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <PageHeader
         title="Explicit Content Analysis"
-        subtitle="Analyzing the prevalence and performance of explicit tracks in the UK charts."
+        subtitle="Comparative performance of explicit vs clean content on the US charts."
       />
 
       {isLoading || !data ? (
@@ -27,32 +31,31 @@ export default function ExplicitAnalysisPage() {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <ExplicitViolins tracks={data.tracks} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <ExplicitSplit stats={data.explicit_stats} />
             <div className="flex flex-col gap-6">
-               <ExplicitDonut stats={data.explicit_stats} />
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                    <p className="text-xs text-[#B3B3B3] uppercase tracking-wider mb-1">Clean Avg Days</p>
-                    <p className="text-2xl font-bold text-white">
-                      {data.explicit_stats.find((s: any) => s.is_explicit === false)?.mean_days.toFixed(1)}
-                    </p>
-                  </div>
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                    <p className="text-xs text-[#B3B3B3] uppercase tracking-wider mb-1">Explicit Avg Days</p>
-                    <p className="text-2xl font-bold text-[#1DB954]">
-                      {data.explicit_stats.find((s: any) => s.is_explicit === true)?.mean_days.toFixed(1)}
-                    </p>
-                  </div>
-               </div>
+              <ExplicitDonut stats={data.explicit_stats} />
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-5 rounded-2xl bg-white/5 border border-white/10 text-center">
+                  <p className="text-[0.65rem] text-[#888] uppercase tracking-wider mb-1">Clean Avg Days</p>
+                  <p className="text-2xl font-bold text-[#06B6D4]">
+                    {getClean(data.explicit_stats)?.mean_days.toFixed(1) ?? "—"}
+                  </p>
+                </div>
+                <div className="p-5 rounded-2xl bg-white/5 border border-white/10 text-center">
+                  <p className="text-[0.65rem] text-[#888] uppercase tracking-wider mb-1">Explicit Avg Days</p>
+                  <p className="text-2xl font-bold text-[#F97316]">
+                    {getExplicit(data.explicit_stats)?.mean_days.toFixed(1) ?? "—"}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
           <InsightBox>
-            🔞 Explicit content makes up <strong>{data.explicit_stats.find((s: any) => s.is_explicit === true)?.share_pct.toFixed(1)}%</strong> of the chart entries. 
-            On average, explicit tracks stay on the chart for 
-            <strong>{data.explicit_stats.find((s: any) => s.is_explicit === true)?.mean_days.toFixed(1)}</strong> days, 
-            compared to <strong>{data.explicit_stats.find((s: any) => s.is_explicit === false)?.mean_days.toFixed(1)}</strong> days for clean tracks.
+            🔞 Explicit content makes up <strong>{getExplicit(data.explicit_stats)?.share_pct.toFixed(1)}%</strong> of the US chart.
+            Explicit tracks average <strong>{getExplicit(data.explicit_stats)?.mean_days.toFixed(1)}</strong> days
+            vs <strong>{getClean(data.explicit_stats)?.mean_days.toFixed(1)}</strong> days for clean tracks.
           </InsightBox>
         </>
       )}
